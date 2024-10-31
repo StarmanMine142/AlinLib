@@ -57,7 +57,7 @@ public class GuiUtils {
             stylesID.add(style.id);
         }
         styles.put(style.id, style);
-        AlinLib.log(String.format("[Style] Registration of %s by id %s", style.name.getString(), style.id));
+        AlinLib.LOG.log(String.format("[Style] Registration of %s by id %s", style.name.getString(), style.id));
     }
     
     public static String[] getStylesName(){

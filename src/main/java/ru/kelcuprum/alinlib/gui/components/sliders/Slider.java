@@ -194,7 +194,7 @@ public class Slider extends AbstractSliderButton implements Description, Resetab
                     .setMessage(Component.translatable("alinlib.component.value_reset.toast"))
                     .setIcon(RESET)
                     .buildAndShow();
-            AlinLib.log(Component.translatable("alinlib.component.reset.toast"));
+            AlinLib.LOG.log(Component.translatable("alinlib.component.reset.toast"));
             return true;
         }
         return super.keyPressed(i, j, k);

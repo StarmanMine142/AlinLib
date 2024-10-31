@@ -18,7 +18,7 @@ public class KeyMappingHelper {
     public static KeyMapping register(KeyMapping mapping){
         if(onRegister != null) return onRegister.onRegister(mapping);
         else {
-            AlinLib.log("KeyMapping registration did not occur, there is no registration function", Level.ERROR);
+            AlinLib.LOG.error("KeyMapping registration did not occur, there is no registration function");
             return mapping;
         }
     }

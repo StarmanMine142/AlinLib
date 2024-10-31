@@ -111,7 +111,7 @@ public class StarScript {
             for (Error error : result.errors) {
                 if(!Objects.equals(lastError, error.message) && System.currentTimeMillis()-lastErrorCheck > 500){
                     lastError = error.message;
-                    AlinLib.log("[StarScript/Errors] "+error.message, Level.ERROR);
+                    AlinLib.LOG.log("[StarScript/Errors] "+error.message, Level.ERROR);
                 }
                 lastErrorCheck = System.currentTimeMillis();
             }
@@ -130,7 +130,7 @@ public class StarScript {
         catch (StarscriptError error) {
             if(!Objects.equals(lastExceptionRunSection, error.getLocalizedMessage()) && System.currentTimeMillis()-lastExceptionRunSectionCheck > 500){
                 lastExceptionRunSection = error.getLocalizedMessage();
-                AlinLib.log("[StarScript/runSection] "+error.getLocalizedMessage(), Level.ERROR);
+                AlinLib.LOG.log("[StarScript/runSection] "+error.getLocalizedMessage(), Level.ERROR);
             }
             lastExceptionRunSectionCheck = System.currentTimeMillis();
             return null;
@@ -144,7 +144,7 @@ public class StarScript {
         } catch (Exception error){
             if(!Objects.equals(lastExceptionRun, error.getLocalizedMessage()) && System.currentTimeMillis()-lastExceptionRunCheck > 500){
                 lastExceptionRun = error.getLocalizedMessage();
-                AlinLib.log("[StarScript/run] "+error.getLocalizedMessage(), Level.ERROR);
+                AlinLib.LOG.log("[StarScript/run] "+error.getLocalizedMessage(), Level.ERROR);
             }
             lastExceptionRunCheck = System.currentTimeMillis();
             return "[AlinLib] StarScript error occurred, please check the console";

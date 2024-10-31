@@ -36,7 +36,7 @@ public class SelectorButton extends Button implements Resetable {
         try {
             return Component.literal(this.builder.list[this.position]);
         } catch (Exception ex){
-            AlinLib.log(ex.getLocalizedMessage(), Level.ERROR);
+            AlinLib.LOG.log(ex.getLocalizedMessage(), Level.ERROR);
             return Component.literal(this.builder.list[0]);
         }
     }

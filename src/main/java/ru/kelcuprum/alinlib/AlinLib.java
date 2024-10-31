@@ -36,7 +36,7 @@ public class AlinLib
 {
     public static final String MODID = "alinlib";
     public static String VERSION = "alinlib";
-    public static final Logger LOG = LogManager.getLogger("AlinaLib");
+    public static final AlinLogger LOG = new AlinLogger("AlinaLib");
     public static Config bariumConfig = new Config("config/AlinLib/config.json");
     public static Localization localization = new Localization("alinlib","config/AlinLib/lang");
     public static Minecraft MINECRAFT = Minecraft.getInstance();
@@ -61,16 +61,16 @@ public class AlinLib
 
         ClientLifecycleEvents.CLIENT_STARTED.register((client) -> {
             LocalizationEvents.DEFAULT_PARSER_INIT.invoker().onParserInit(starScript);
-            AlinLib.log(String.format("Client started. MC Version: %s", client.getLaunchedVersion()));
+            LOG.log(String.format("Client started. MC Version: %s", client.getLaunchedVersion()));
         });
         ClientLifecycleEvents.CLIENT_FULL_STARTED.register((client) -> {
-            AlinLib.log(String.format("Client full started. MC Version: %s", client.getLaunchedVersion()));
+            LOG.log(String.format("Client full started. MC Version: %s", client.getLaunchedVersion()));
             aprilFool();
             isHBKel();
         });
         ClientLifecycleEvents.CLIENT_STOPPING.register((client) -> {
-            log(Component.translatable("alinlib.log.exit.first"));
-            log(Component.translatable("alinlib.log.exit.two"));
+            LOG.log(Component.translatable("alinlib.log.exit.first"));
+            LOG.log(Component.translatable("alinlib.log.exit.two"));
         });
         LocalizationEvents.DEFAULT_PARSER_INIT.register(parser -> parser.ss.set("alinlib", new ValueMap()
                 .set("id", MODID)
@@ -150,10 +150,4 @@ public class AlinLib
                     .buildAndShow();
         }
     }
-
-    // Logs
-    public static void log(Component message) { log(message, Level.INFO);}
-    public static void log(Component message, Level level) { log(message.getString(), level);}
-    public static void log(String message) { log(message, Level.INFO);}
-    public static void log(String message, Level level) { LOG.log(level, "[" + LOG.getName() + "] " + message); }
 }

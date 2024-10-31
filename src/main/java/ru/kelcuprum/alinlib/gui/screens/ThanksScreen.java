@@ -12,14 +12,12 @@ import net.minecraft.network.chat.Style;
 import org.lwjgl.glfw.GLFW;
 import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.WebAPI;
-import ru.kelcuprum.alinlib.gui.Colors;
 import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBuilder;
 import ru.kelcuprum.alinlib.gui.components.text.MessageBox;
 import ru.kelcuprum.alinlib.gui.components.text.TextBox;
 
 import java.awt.*;
 
-import static java.lang.Integer.parseInt;
 import static ru.kelcuprum.alinlib.gui.Icons.EXIT;
 import static ru.kelcuprum.alinlib.gui.Icons.THANKS;
 

@@ -115,7 +115,7 @@ public class Config {
             Files.createDirectories(configFile.getParent());
             Files.writeString(configFile, _jsonConfiguration.toString());
         } catch (IOException e) {
-            AlinLib.log(e.getLocalizedMessage(), Level.ERROR);
+            AlinLib.LOG.log(e.getLocalizedMessage(), Level.ERROR);
         }
     }
 
@@ -128,7 +128,7 @@ public class Config {
         try {
             _jsonConfiguration = configFile.toFile().exists() ? GsonHelper.parse(Files.readString(configFile)) : new JsonObject();
         } catch (Exception e) {
-            AlinLib.log(e.getLocalizedMessage(), Level.ERROR);
+            AlinLib.LOG.log(e.getLocalizedMessage(), Level.ERROR);
             save();
         }
     }

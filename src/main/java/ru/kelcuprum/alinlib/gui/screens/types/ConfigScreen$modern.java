@@ -58,7 +58,7 @@ public class ConfigScreen$modern extends AbstractConfigScreen {
                     .setMessage(Component.translatable("alinlib.component.reset.toast"))
                     .setIcon(RESET)
                     .buildAndShow();
-            AlinLib.log(Component.translatable("alinlib.component.reset.toast"));
+            AlinLib.LOG.log(Component.translatable("alinlib.component.reset.toast"));
         }).setSprite(RESET).setSize(20, 20).setPosition(this.builder.panelSize - 25, height - 25).build());
         this.scroller_panel = addRenderableWidget(new ConfigureScrolWidget(builder.panelSize-9, 30, 4, this.height - 60, Component.empty(), scroller -> {
             scroller.innerHeight = 5;

@@ -50,7 +50,7 @@ public class Localization {
                 return new JsonObject();
             }
         } catch (Exception ex){
-            AlinLib.log(ex.getLocalizedMessage());
+            AlinLib.LOG.error(ex.getLocalizedMessage());
             return new JsonObject();
         }
     }
@@ -70,7 +70,7 @@ public class Localization {
             if(!JSONLocalization.has(key) || JSONLocalization.get(key).isJsonNull()) text = getText(modID+ "." + key).getString();
             else text = JSONLocalization.get(key).getAsString();
         } catch (Exception ex) {
-            AlinLib.log(ex.getLocalizedMessage());
+            AlinLib.LOG.error(ex.getLocalizedMessage());
             text = getDefaultLocalization(key);
         }
         text = clearColor ? clearFormatCodes(text) : fixFormatCodes ? fixFormatCodes(text) : text;
@@ -98,7 +98,7 @@ public class Localization {
             Files.createDirectories(localizationFile.getParent());
             Files.writeString(localizationFile, JSONLocalization.toString());
         } catch (Exception e){
-            AlinLib.log(e.getLocalizedMessage(), Level.ERROR);
+            AlinLib.LOG.error(e.getLocalizedMessage(), Level.ERROR);
         }
     }
     public void setParser(Parser parser){

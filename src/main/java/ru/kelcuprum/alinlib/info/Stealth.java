@@ -37,7 +37,7 @@ public class Stealth {
                 if ((value > -1.25 && value < -0.75) || (value > 0.75 && value < 1.25)) {
                     if (isX) funnyCoordinatesX$alinLib.put(info, value);
                     else funnyCoordinatesZ$alinLib.put(info, value);
-                    AlinLib.log(info + ": " + value + (isX ? " x" : " z"));
+                    AlinLib.LOG.log(info + ": " + value + (isX ? " x" : " z"));
                     break;
                 }
             }
@@ -58,7 +58,7 @@ public class Stealth {
                 if ((value > -1.25 && value < -0.75) || (value > 0.75 && value < 1.25)) {
                     if (isX) funnyCoordinatesX$imGRUI.put(info, value);
                     else funnyCoordinatesZ$imGRUI.put(info, value);
-                    AlinLib.log(info + ": " + value + (isX ? " x" : " z"));
+                    AlinLib.LOG.log(info + ": " + value + (isX ? " x" : " z"));
                     break;
                 }
             }

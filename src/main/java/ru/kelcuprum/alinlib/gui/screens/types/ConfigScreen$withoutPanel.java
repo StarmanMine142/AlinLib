@@ -51,7 +51,7 @@ public class ConfigScreen$withoutPanel extends AbstractConfigScreen {
                     .setMessage(Component.translatable("alinlib.component.reset.toast"))
                     .setIcon(RESET)
                     .buildAndShow();
-            AlinLib.log(Component.translatable("alinlib.component.reset.toast"));
+            AlinLib.LOG.log(Component.translatable("alinlib.component.reset.toast"));
         }).setSprite(RESET).setSize(20, 20).setPosition(10, 5).build());
         addRenderableWidgets(builder.panelWidgets);
     }
