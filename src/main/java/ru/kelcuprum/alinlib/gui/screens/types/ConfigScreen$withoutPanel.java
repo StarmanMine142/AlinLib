@@ -4,6 +4,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.network.chat.*;
+import net.minecraft.util.FormattedCharSequence;
 import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.gui.Colors;
 import ru.kelcuprum.alinlib.gui.components.*;
@@ -11,7 +12,6 @@ import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBuilder;
 import ru.kelcuprum.alinlib.gui.components.text.*;
 import ru.kelcuprum.alinlib.gui.screens.*;
 import ru.kelcuprum.alinlib.gui.toast.ToastBuilder;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
@@ -179,7 +179,9 @@ public class ConfigScreen$withoutPanel extends AbstractConfigScreen {
         guiGraphics.enableScissor(0, 30, width, this.height-5);
         if (scroller != null) for (AbstractWidget widget : scroller.widgets) widget.render(guiGraphics, mouseX, mouseY, partialTicks);
         guiGraphics.disableScissor();
-        if (!Objects.equals(description, Component.empty()))
-            guiGraphics.renderTooltip(AlinLib.MINECRAFT.font, description, mouseX, mouseY);
+        if (!Objects.equals(description, Component.empty())) {
+            List<FormattedCharSequence> listed = AlinLib.MINECRAFT.font.split(description, width-20);
+            guiGraphics.renderTooltip(AlinLib.MINECRAFT.font, listed, mouseX, mouseY);
+        }
     }
 }

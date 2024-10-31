@@ -32,7 +32,7 @@ public class ConfigScreen$modern extends AbstractConfigScreen {
         initCategory();
         super.init();
     }
-
+    int yo = 35;
     public void initPanelButtons() {
         // -=-=-=-=-=-=-=-
         titleW = addRenderableWidget(new TextBox(5, 5, this.builder.panelSize - 10, 20, this.builder.title, true));
@@ -43,11 +43,23 @@ public class ConfigScreen$modern extends AbstractConfigScreen {
         // -=-=-=-=-=-=-=-
         // Exit Buttons
         // 85 before reset button
-
+        int heigthScroller = 35;
+        for (AbstractWidget widget : builder.panelWidgets) heigthScroller+=(widget.getHeight()+5);
+        this.scroller_panel = addRenderableWidget(new ConfigureScrolWidget(builder.panelSize-9, 30, 4, this.height - 60, Component.empty(), scroller -> {
+            scroller.innerHeight = 5;
+            for (AbstractWidget widget : builder.panelWidgets) {
+                if (widget.visible) {
+                    widget.setY(30+(int) (scroller.innerHeight - scroller.scrollAmount()));
+                    scroller.innerHeight += (widget.getHeight() + 5);
+                } else widget.setY(-widget.getHeight());
+            }
+            scroller.innerHeight-=8;
+        }));
+        yo = Math.min(heigthScroller, height-30);
         back = addRenderableWidget(new ButtonBuilder(CommonComponents.GUI_BACK).setOnPress((OnPress) -> {
             assert this.minecraft != null;
             this.minecraft.setScreen(builder.parent);
-        }).setIcon(AlinLib.isAprilFool() ? EXIT : null).setPosition(5, height - 25).setSize(this.builder.panelSize - 35, 20).build());
+        }).setIcon(AlinLib.isAprilFool() ? EXIT : null).setPosition(5, yo+5).setSize(this.builder.panelSize - 35, 20).build());
 
         reset = addRenderableWidget(new ButtonBuilder(Component.translatable("alinlib.component.reset")).setOnPress((OnPress) -> {
             for (AbstractWidget widget : builder.widgets)
@@ -59,17 +71,8 @@ public class ConfigScreen$modern extends AbstractConfigScreen {
                     .setIcon(RESET)
                     .buildAndShow();
             AlinLib.LOG.log(Component.translatable("alinlib.component.reset.toast"));
-        }).setSprite(RESET).setSize(20, 20).setPosition(this.builder.panelSize - 25, height - 25).build());
-        this.scroller_panel = addRenderableWidget(new ConfigureScrolWidget(builder.panelSize-9, 30, 4, this.height - 60, Component.empty(), scroller -> {
-            scroller.innerHeight = 5;
-            for (AbstractWidget widget : builder.panelWidgets) {
-                if (widget.visible) {
-                    widget.setY(30+(int) (scroller.innerHeight - scroller.scrollAmount()));
-                    scroller.innerHeight += (widget.getHeight() + 5);
-                } else widget.setY(-widget.getHeight());
-            }
-            scroller.innerHeight-=8;
-        }));
+        }).setSprite(RESET).setSize(20, 20).setPosition(this.builder.panelSize - 25, yo+5).build());
+
         addRenderableWidgets$scroller(scroller_panel, builder.panelWidgets);
     }
 
@@ -194,7 +197,7 @@ public class ConfigScreen$modern extends AbstractConfigScreen {
         //$$      super.renderBackground(guiGraphics);
         //#endif
         guiGraphics.fill(5, 5, this.builder.panelSize-5, 25, Colors.BLACK_ALPHA);
-        guiGraphics.fill(5, 30, this.builder.panelSize-5, this.height-30, Colors.BLACK_ALPHA);
+        guiGraphics.fill(5, 30, this.builder.panelSize-5, yo, Colors.BLACK_ALPHA);
     }
 
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
@@ -202,7 +205,7 @@ public class ConfigScreen$modern extends AbstractConfigScreen {
         //$$ renderBackground(guiGraphics);
         //#endif
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
-        guiGraphics.enableScissor(10, 35, builder.panelSize-10, this.height-35);
+        guiGraphics.enableScissor(10, 35, builder.panelSize-10, yo-5);
         if (scroller_panel != null) for (AbstractWidget widget : scroller_panel.widgets) widget.render(guiGraphics, mouseX, mouseY, partialTicks);
         guiGraphics.disableScissor();
     }
