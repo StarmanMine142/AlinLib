@@ -1,0 +1,146 @@
+package ru.kelcuprum.alinlib.gui.screens;
+
+import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
+import net.minecraft.Util;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
+import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBuilder;
+
+import java.util.List;
+
+
+public class ConfirmScreen extends Screen {
+    public final Screen parent;
+    public final Component message;
+    public final BooleanConsumer consumer;
+    public final ResourceLocation icon;
+    public String url;
+
+    public ConfirmScreen(Screen parent, Component title, Component message, String url){
+        this(parent, null, title, message, url);
+    }
+    public ConfirmScreen(Screen parent, ResourceLocation icon, Component title, Component message, String url){
+        this(parent, icon, title, message, (bl) -> {
+            if (bl) Util.getPlatform().openUri(url);
+        });
+        this.url = url;
+    }
+    public ConfirmScreen(Screen parent, Component title, Component message, BooleanConsumer consumer) {
+        this(parent, null, title, message, consumer);
+    }
+    public ConfirmScreen(Screen parent, ResourceLocation icon, Component title, Component message, BooleanConsumer consumer) {
+        super(title);
+        this.consumer = consumer;
+        this.message = message;
+        this.parent = parent;
+        this.icon = icon;
+    }
+    AbstractWidget yes;
+    AbstractWidget no;
+    AbstractWidget copy;
+
+
+    @Override
+    protected void init() {
+        int x = (width / 2) - 104;
+        int y = Math.max((168+this.font.lineHeight), (height/2) - 10);
+        yes = addRenderableWidget(new ButtonBuilder(url == null ? CommonComponents.GUI_YES : CommonComponents.GUI_OPEN_IN_BROWSER, (s) -> {
+            consumer.accept(true);
+            onClose();
+        }).setVisible(false)
+                .setPosition(x, y).setSize(100, 20).build());
+        no = addRenderableWidget(new ButtonBuilder(url == null ? CommonComponents.GUI_NO : CommonComponents.GUI_BACK, (s) -> {
+            consumer.accept(false);
+            onClose();
+        }).setVisible(false)
+                .setPosition(x+104, y).setSize(100, 20).build());
+        if(url != null){
+            copy = addRenderableWidget(new ButtonBuilder(CommonComponents.GUI_COPY_LINK_TO_CLIPBOARD, (s) -> {
+                consumer.accept(false);
+                assert this.minecraft != null;
+                this.minecraft.keyboardHandler.setClipboard(url);
+                onClose();
+            }).setVisible(false)
+                    .setPosition(x+29, y+24).setSize(150, 20).build());
+        }
+    }
+
+    //#if MC >= 12002
+    public void renderBackground(GuiGraphics guiGraphics, int i, int j, float f) {
+        super.renderBackground(guiGraphics, i, j, f);
+        //#elseif MC < 12002
+        //$$ public void renderBackground(GuiGraphics guiGraphics) {
+        //$$         super.renderBackground(guiGraphics);
+        //#endif
+        int top = 0x00000000;
+        int bottom = 0x7F000000;
+        guiGraphics.fillGradient(0, 0, guiGraphics.guiWidth(), guiGraphics.guiHeight(), top, bottom);
+    }
+
+    int maxY = 85;
+    @Override
+    public void render(GuiGraphics guiGraphics, int i, int j, float f) {
+        //#if MC < 12002
+        //$$     renderBackground(guiGraphics);
+        //#endif
+        super.render(guiGraphics, i, j, f);
+
+        int y = 60;
+        if(this.icon != null){
+            guiGraphics.blit(
+                    //#if MC >= 12102
+                    RenderType::guiTextured,
+                    //#endif
+                    icon, (width/2)-25, y, 0,0, 50,50, 50, 50);
+            y+=55;
+        }
+        if(!getTitle().getString().isBlank()) {
+            guiGraphics.pose().pushPose();
+            guiGraphics.pose().scale(2.0F, 2.0F, 2.0F);
+            guiGraphics.drawCenteredString(this.font, this.title, this.width / 2 / 2, y / 2, 16777215);
+            guiGraphics.pose().popPose();
+            y += 25;
+        }
+        List<FormattedCharSequence> text = this.font.split(message, Math.min(750, (int) (width*0.75)));
+        for(FormattedCharSequence arg : text){
+            guiGraphics.drawCenteredString(this.font, arg, this.width / 2, y, 16777215);
+            y+=(this.font.lineHeight+3);
+        }
+        if(url != null){
+            y+=3;
+            guiGraphics.drawCenteredString(this.font, Component.empty().setStyle(Style.EMPTY.withColor(0xFFbac2de)).append(url), this.width / 2, y, 16777215);
+            y+=(this.font.lineHeight);
+        }
+        y+=10;
+        maxY = y;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if(yes != null) {
+            yes.setY(Math.max(height/2-10, maxY));
+            yes.visible = true;
+        }
+        if(no != null) {
+            no.setY(Math.max(height/2-10, maxY));
+            no.visible = true;
+        }
+        if(copy != null) {
+            copy.setY(Math.max(height/2-10, maxY)+24);
+            copy.visible = true;
+        }
+    }
+
+    public void onClose() {
+        assert this.minecraft != null;
+        this.minecraft.setScreen(parent);
+    }
+}

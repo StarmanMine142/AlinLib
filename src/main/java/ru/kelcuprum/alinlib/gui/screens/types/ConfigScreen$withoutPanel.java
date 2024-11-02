@@ -43,15 +43,19 @@ public class ConfigScreen$withoutPanel extends AbstractConfigScreen {
         }).setSprite(AlinLib.isAprilFool() ? EXIT : null).setPosition(width - 30, 5).setSize(20, 20).build());
 
         reset = addRenderableWidget(new ButtonBuilder(Component.translatable("alinlib.component.reset")).setOnPress((OnPress) -> {
-            for (AbstractWidget widget : builder.widgets)
-                if (widget instanceof Resetable) ((Resetable) widget).resetValue();
-            assert this.minecraft != null;
-            new ToastBuilder()
-                    .setTitle(title)
-                    .setMessage(Component.translatable("alinlib.component.reset.toast"))
-                    .setIcon(RESET)
-                    .buildAndShow();
-            AlinLib.LOG.log(Component.translatable("alinlib.component.reset.toast"));
+            this.minecraft.setScreen(new ConfirmScreen(this, RESET, Component.translatable("alinlib.title.reset"), Component.translatable("alinlib.title.reset.description"), (bl) -> {
+                if(bl){
+                    for (AbstractWidget widget : builder.widgets)
+                        if (widget instanceof Resetable) ((Resetable) widget).resetValue();
+                    assert this.minecraft != null;
+                    new ToastBuilder()
+                            .setTitle(title)
+                            .setMessage(Component.translatable("alinlib.component.reset.toast"))
+                            .setIcon(RESET)
+                            .buildAndShow();
+                    AlinLib.LOG.log(Component.translatable("alinlib.component.reset.toast"));
+                }
+            }));
         }).setSprite(RESET).setSize(20, 20).setPosition(10, 5).build());
         addRenderableWidgets(builder.panelWidgets);
     }

@@ -5,9 +5,6 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Items;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
 import ru.kelcuprum.alinlib.api.KeyMappingHelper;
 import ru.kelcuprum.alinlib.api.events.alinlib.AlinLibEvents;
@@ -41,6 +38,10 @@ public class AlinLib
     public static Localization localization = new Localization("alinlib","config/AlinLib/lang");
     public static Minecraft MINECRAFT = Minecraft.getInstance();
     public static StarScript starScript;
+
+    public static boolean isNotReleaseVersion(){
+        return (VERSION.split("-").length > 1) && (VERSION.contains("beta") || VERSION.contains("alpha") || VERSION.contains("dev") || VERSION.contains("rc"));
+    }
 
     // Init
     public static void init() {

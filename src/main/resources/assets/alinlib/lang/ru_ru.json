@@ -1,6 +1,11 @@
 {
   "alinlib.editbox.secret": "Секрет :)",
 
+  "alinlib.title.not_release": "Эта версия не релизная!",
+  "alinlib.title.not_release.description": "Данная версия не является релизной и может содержать множество ошибок и недочетов.\nЕсли вы их заметили, то обратитесь в Issues мода!",
+  "alinlib.title.reset": "Сбросить параметры?",
+  "alinlib.title.reset.description": "Если вы сбросите настройки, процесс будет необратимым",
+
   "alinlib.key.stealth": "Режим стелса",
 
   "alinlib.component.reset": "Сброс",
@@ -90,7 +95,7 @@
   "alinlib.style.modern": "Современный",
 
 
-  "alinlib.log.exit.first": "Не стоит мешать людям сходить с ума",
+  "alinlib.log.exit.first": "Истинное счастие невозможно без одиночества",
   "alinlib.log.exit.two": "— Антон Чехов",
 
   "alinlib.color.groupie": "Groupie",

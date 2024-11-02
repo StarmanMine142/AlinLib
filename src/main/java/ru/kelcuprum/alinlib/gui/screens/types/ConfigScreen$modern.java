@@ -16,6 +16,7 @@ import ru.kelcuprum.alinlib.gui.components.text.DescriptionBox;
 import ru.kelcuprum.alinlib.gui.components.text.TextBox;
 import ru.kelcuprum.alinlib.gui.screens.AbstractConfigScreen;
 import ru.kelcuprum.alinlib.gui.screens.ConfigScreenBuilder;
+import ru.kelcuprum.alinlib.gui.screens.ConfirmScreen;
 import ru.kelcuprum.alinlib.gui.toast.ToastBuilder;
 
 import static ru.kelcuprum.alinlib.gui.Icons.EXIT;
@@ -62,15 +63,19 @@ public class ConfigScreen$modern extends AbstractConfigScreen {
         }).setIcon(AlinLib.isAprilFool() ? EXIT : null).setPosition(5, yo+5).setSize(this.builder.panelSize - 35, 20).build());
 
         reset = addRenderableWidget(new ButtonBuilder(Component.translatable("alinlib.component.reset")).setOnPress((OnPress) -> {
-            for (AbstractWidget widget : builder.widgets)
-                if (widget instanceof Resetable) ((Resetable) widget).resetValue();
-            assert this.minecraft != null;
-            new ToastBuilder()
-                    .setTitle(title)
-                    .setMessage(Component.translatable("alinlib.component.reset.toast"))
-                    .setIcon(RESET)
-                    .buildAndShow();
-            AlinLib.LOG.log(Component.translatable("alinlib.component.reset.toast"));
+            this.minecraft.setScreen(new ConfirmScreen(this, RESET, Component.translatable("alinlib.title.reset"), Component.translatable("alinlib.title.reset.description"), (bl) -> {
+                if(bl){
+                    for (AbstractWidget widget : builder.widgets)
+                        if (widget instanceof Resetable) ((Resetable) widget).resetValue();
+                    assert this.minecraft != null;
+                    new ToastBuilder()
+                            .setTitle(title)
+                            .setMessage(Component.translatable("alinlib.component.reset.toast"))
+                            .setIcon(RESET)
+                            .buildAndShow();
+                    AlinLib.LOG.log(Component.translatable("alinlib.component.reset.toast"));
+                }
+            }));
         }).setSprite(RESET).setSize(20, 20).setPosition(this.builder.panelSize - 25, yo+5).build());
 
         addRenderableWidgets$scroller(scroller_panel, builder.panelWidgets);
