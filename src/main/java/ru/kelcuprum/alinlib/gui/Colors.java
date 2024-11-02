@@ -18,9 +18,26 @@ public interface Colors {
     int BLACK = 0xFF000000;
     int BLACK_ALPHA = 0x37000000;
 
+    // Mods
     int SODIUM = 0xFF92e0d0;
     int EMBEDDIUM = 0xFFcf7cb6;
     int WEBSITE_WATERPLAYER = 0XFFd03b18;
+
+    // 	Catppuccin Mocha
+    int CPM_ROSEWATER = 0xfff5e0dc;
+    int CPM_FLAMINGO = 0xfff2cdcd;
+    int CPM_PINK = 0xfff5c2e7;
+    int CPM_MAUVE = 0xffcba6f7;
+    int CPM_RED = 0xfff38ba8;
+    int CPM_MAROON = 0xffeba0ac;
+    int CPM_PEACH = 0xfffab387;
+    int CPM_YELLOW = 0xfff9e2af;
+    int CPM_GREEN = 0xffa6e3a1;
+    int CPM_TEAL = 0xff94e2d5;
+    int CPM_SKY = 0xff89dceb;
+    int CPM_SAPPHIRE = 0xff74c7ec;
+    int CPM_BLUE = 0xff89b4fa;
+    int CPM_LAVENDER = 0xffb4befe;
 
     static int getCheckBoxColor(){
         return switch (AlinLib.bariumConfig.getNumber("CHECKBOX.COLOR", 0).intValue()){
@@ -34,6 +51,22 @@ public interface Colors {
             case 7 -> Colors.EMBEDDIUM;
             case 8 -> Colors.WHITE;
             case 9 -> Colors.WEBSITE_WATERPLAYER;
+
+            case 10 -> Colors.CPM_ROSEWATER;
+            case 11 -> Colors.CPM_FLAMINGO;
+            case 12 -> Colors.CPM_PINK;
+            case 13 -> Colors.CPM_MAUVE;
+            case 14 -> Colors.CPM_RED;
+            case 15 -> Colors.CPM_MAROON;
+            case 16 -> Colors.CPM_PEACH;
+            case 17 -> Colors.CPM_YELLOW;
+            case 18 -> Colors.CPM_GREEN;
+            case 19 -> Colors.CPM_TEAL;
+            case 20 -> Colors.CPM_SKY;
+            case 21 -> Colors.CPM_SAPPHIRE;
+            case 22 -> Colors.CPM_BLUE;
+            case 23 -> Colors.CPM_LAVENDER;
+
             default -> AlinLib.bariumConfig.getNumber("CHECKBOX.COLOR.CUSTOM", Colors.SPECKLE[0]).intValue();
         };
     }
@@ -49,7 +82,22 @@ public interface Colors {
             case 7 -> Colors.SODIUM;
             case 8 -> Colors.EMBEDDIUM;
             case 9 -> Colors.WEBSITE_WATERPLAYER;
-            default -> AlinLib.bariumConfig.getNumber("CHECKBOX.COLOR.CUSTOM", Colors.SPECKLE[0]).intValue();
+
+            case 10 -> Colors.CPM_ROSEWATER;
+            case 11 -> Colors.CPM_FLAMINGO;
+            case 12 -> Colors.CPM_PINK;
+            case 13 -> Colors.CPM_MAUVE;
+            case 14 -> Colors.CPM_RED;
+            case 15 -> Colors.CPM_MAROON;
+            case 16 -> Colors.CPM_PEACH;
+            case 17 -> Colors.CPM_YELLOW;
+            case 18 -> Colors.CPM_GREEN;
+            case 19 -> Colors.CPM_TEAL;
+            case 20 -> Colors.CPM_SKY;
+            case 21 -> Colors.CPM_SAPPHIRE;
+            case 22 -> Colors.CPM_BLUE;
+            case 23 -> Colors.CPM_LAVENDER;
+            default -> AlinLib.bariumConfig.getNumber("CHECKBOX.COLOR.CUSTOM", Colors.CPM_LAVENDER).intValue();
         };
     }
 }

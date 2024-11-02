@@ -49,9 +49,25 @@ public class DesignScreen {
                                 Component.translatable("alinlib.color.embeddium").getString(),
                                 Component.translatable("alinlib.color.white").getString(),
                                 Component.translatable("alinlib.color.waterplayer").getString(),
+                                // CPM - Catppuccin Mocha
+                                "(CPM) Rosewater",
+                                "(CPM) Flamingo",
+                                "(CPM) Pink",
+                                "(CPM) Mauve",
+                                "(CPM) Red",
+                                "(CPM) Maroon",
+                                "(CPM) Peach",
+                                "(CPM) Yellow",
+                                "(CPM) Green",
+                                "(CPM) Teal",
+                                "(CPM) Sky",
+                                "(CPM) Sapphire",
+                                "(CPM) Blue",
+                                "(CPM) Lavender",
+
                                 Component.translatable("alinlib.color.user").getString()
                         }).setConfig(AlinLib.bariumConfig, "CHECKBOX.COLOR"))
-                        .addValue(new EditBoxBuilder(Component.translatable("alinlib.config.checkbox.color.custom")).setColor(Colors.SPECKLE[0]).setConfig(AlinLib.bariumConfig, "CHECKBOX.COLOR.CUSTOM"))
+                        .addValue(new EditBoxBuilder(Component.translatable("alinlib.config.checkbox.color.custom")).setColor(Colors.CPM_LAVENDER).setConfig(AlinLib.bariumConfig, "CHECKBOX.COLOR.CUSTOM"))
                 )
                 .addWidget(new SelectorBuilder(Component.translatable("alinlib.config.scroller.color")).setValue(0).setList(new String[]{
                         Component.translatable("alinlib.color.white").getString(),
@@ -64,6 +80,21 @@ public class DesignScreen {
                         Component.translatable("alinlib.color.sodium").getString(),
                         Component.translatable("alinlib.color.embeddium").getString(),
                         Component.translatable("alinlib.color.waterplayer").getString(),
+                        // CPM - Catppuccin Mocha
+                        "(CPM) Rosewater",
+                        "(CPM) Flamingo",
+                        "(CPM) Pink",
+                        "(CPM) Mauve",
+                        "(CPM) Red",
+                        "(CPM) Maroon",
+                        "(CPM) Peach",
+                        "(CPM) Yellow",
+                        "(CPM) Green",
+                        "(CPM) Teal",
+                        "(CPM) Sky",
+                        "(CPM) Sapphire",
+                        "(CPM) Blue",
+                        "(CPM) Lavender",
                         Component.translatable("alinlib.color.user").getString()
                 }).setConfig(AlinLib.bariumConfig, "SCROLLER.COLOR"))
                 .addWidget(new ButtonBooleanBuilder(Component.translatable("alinlib.config.modern"), true).setConfig(AlinLib.bariumConfig, "MODERN"));

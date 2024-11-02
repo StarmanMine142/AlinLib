@@ -1,9 +1,10 @@
 - Added AlinLogger
-- Rewritten logs
-- Changed icon
-- Small fixes ConfigScreen
 - Added ConfirmScreen
 - Added isNotReleaseVersion();
+- Added   Catppuccin/Mocha colors
+- Changed icon
 - Cleanup code
 - Support for 1.20.x is canceled
 - Support 1.21.2 for NeoForge
+- Small fixes ConfigScreen
+- Rewritten logs
