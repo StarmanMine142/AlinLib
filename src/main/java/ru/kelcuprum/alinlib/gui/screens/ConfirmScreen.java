@@ -50,16 +50,16 @@ public class ConfirmScreen extends Screen {
     @Override
     protected void init() {
         int x = (width / 2) - 104;
-        int y = Math.max((168+this.font.lineHeight), (height/2) - 10);
+        int y = getButtonY();
         yes = addRenderableWidget(new ButtonBuilder(url == null ? CommonComponents.GUI_YES : CommonComponents.GUI_OPEN_IN_BROWSER, (s) -> {
             consumer.accept(true);
             onClose();
-        }).setVisible(false)
+        })
                 .setPosition(x, y).setSize(100, 20).build());
         no = addRenderableWidget(new ButtonBuilder(url == null ? CommonComponents.GUI_NO : CommonComponents.GUI_BACK, (s) -> {
             consumer.accept(false);
             onClose();
-        }).setVisible(false)
+        })
                 .setPosition(x+104, y).setSize(100, 20).build());
         if(url != null){
             copy = addRenderableWidget(new ButtonBuilder(CommonComponents.GUI_COPY_LINK_TO_CLIPBOARD, (s) -> {
@@ -67,7 +67,7 @@ public class ConfirmScreen extends Screen {
                 assert this.minecraft != null;
                 this.minecraft.keyboardHandler.setClipboard(url);
                 onClose();
-            }).setVisible(false)
+            })
                     .setPosition(x+29, y+24).setSize(150, 20).build());
         }
     }
@@ -83,8 +83,18 @@ public class ConfirmScreen extends Screen {
         int bottom = 0x7F000000;
         guiGraphics.fillGradient(0, 0, guiGraphics.guiWidth(), guiGraphics.guiHeight(), top, bottom);
     }
+    protected int getButtonY(){
+        int y = 70;
+        if(icon != null) y+=55;
+        if(!getTitle().getString().isBlank()) y+=25;
+        for(FormattedCharSequence arg : getSplitText()) y+= (this.font.lineHeight+3);
+        if(url != null) y+= (this.font.lineHeight+3);
+        return Math.max(height/2-10, y);
+    }
+    protected List<FormattedCharSequence> getSplitText(){
+        return this.font.split(message, Math.min(750, (int) (width*0.75)));
+    }
 
-    int maxY = 85;
     @Override
     public void render(GuiGraphics guiGraphics, int i, int j, float f) {
         //#if MC < 12002
@@ -108,8 +118,7 @@ public class ConfirmScreen extends Screen {
             guiGraphics.pose().popPose();
             y += 25;
         }
-        List<FormattedCharSequence> text = this.font.split(message, Math.min(750, (int) (width*0.75)));
-        for(FormattedCharSequence arg : text){
+        for(FormattedCharSequence arg : getSplitText()){
             guiGraphics.drawCenteredString(this.font, arg, this.width / 2, y, 16777215);
             y+=(this.font.lineHeight+3);
         }
@@ -117,25 +126,6 @@ public class ConfirmScreen extends Screen {
             y+=3;
             guiGraphics.drawCenteredString(this.font, Component.empty().setStyle(Style.EMPTY.withColor(0xFFbac2de)).append(url), this.width / 2, y, 16777215);
             y+=(this.font.lineHeight);
-        }
-        y+=10;
-        maxY = y;
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        if(yes != null) {
-            yes.setY(Math.max(height/2-10, maxY));
-            yes.visible = true;
-        }
-        if(no != null) {
-            no.setY(Math.max(height/2-10, maxY));
-            no.visible = true;
-        }
-        if(copy != null) {
-            copy.setY(Math.max(height/2-10, maxY)+24);
-            copy.visible = true;
         }
     }
 
