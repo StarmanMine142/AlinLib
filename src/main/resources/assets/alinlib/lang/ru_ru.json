@@ -4,7 +4,7 @@
   "alinlib.title.not_release": "Эта версия не релизная!",
   "alinlib.title.not_release.description": "Данная версия не является релизной и может содержать множество ошибок и недочетов.\nЕсли вы их заметили, то обратитесь в Issues мода!",
   "alinlib.title.reset": "Сбросить параметры?",
-  "alinlib.title.reset.description": "Если вы сбросите настройки, то ваши действия будут необратимы",
+  "alinlib.title.reset.description": "Данное действие необратимо!",
 
   "alinlib.key.stealth": "Режим стелса",
 
@@ -31,6 +31,7 @@
   "alinlib.config.checkbox.color": "Цвет",
   "alinlib.config.checkbox.color.custom": "Кастоный цвет",
   "alinlib.config.scroller.color": "Цвет скроллера",
+  "alinlib.config.scroller.smooth": "Плавный скролл",
   "alinlib.config.modern": "Современный дизайн",
 
   "alinlib.config.localization": "Локализация",

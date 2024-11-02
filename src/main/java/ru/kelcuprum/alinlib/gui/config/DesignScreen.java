@@ -97,6 +97,7 @@ public class DesignScreen {
                         "(CPM) Lavender",
                         Component.translatable("alinlib.color.user").getString()
                 }).setConfig(AlinLib.bariumConfig, "SCROLLER.COLOR"))
+                .addWidget(new ButtonBooleanBuilder(Component.translatable("alinlib.config.scroller.smooth"), false).setConfig(AlinLib.bariumConfig, "SCROLLER.SMOOTH"))
                 .addWidget(new ButtonBooleanBuilder(Component.translatable("alinlib.config.modern"), true).setConfig(AlinLib.bariumConfig, "MODERN"));
         return builder.build();
     }

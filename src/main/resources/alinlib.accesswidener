@@ -3,3 +3,4 @@ accessible method net/minecraft/client/gui/components/AbstractSliderButton setVa
 accessible field net/minecraft/client/gui/components/EditBox font Lnet/minecraft/client/gui/Font;
 accessible field net/minecraft/client/gui/components/EditBox formatter Ljava/util/function/BiFunction;
 accessible field net/minecraft/client/gui/components/EditBox displayPos I
+accessible field net/minecraft/client/gui/components/AbstractScrollWidget scrollAmount D

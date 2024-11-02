@@ -8,6 +8,7 @@ import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
+import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.gui.Colors;
 
 import java.util.ArrayList;
@@ -41,8 +42,8 @@ public class ConfigureScrolWidget extends AbstractScrollWidget {
     }
 
     @Override
-    protected void setScrollAmount(double scrollAmount) {
-        super.setScrollAmount(scrollAmount);
+    protected void setScrollAmount(double amount) {
+        super.setScrollAmount(amount);
         this.onScroll.accept(this);
     }
 
@@ -94,5 +95,71 @@ public class ConfigureScrolWidget extends AbstractScrollWidget {
     @Override
     protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
         narrationElementOutput.add(NarratedElementType.TITLE, getMessage());
+    }
+
+    // Original code: https://modrinth.com/mod/smooth-scrolling-refurbished
+    private double animationTimer = 0;
+    private double scrollStartVelocity = 0;
+
+    public static double scrollSpeed = 0.5;
+    public static double scrollbarDrag= 0.025;
+    public static double animationDuration = 1.0;
+    public static double pushBackStrength = 1.0;
+
+    @Override
+    public boolean mouseScrolled(double d, double e, double f, double g) {
+        if (!this.visible) {
+            return false;
+        } else {
+            double amount = this.scrollAmount - g * this.scrollRate();
+            if(AlinLib.bariumConfig.getBoolean("SCROLLER.SMOOTH", false) && scrollbarVisible()){
+                double diff = amount - this.scrollAmount;
+                diff = Math.signum(diff) * Math.min(Math.abs(diff), 10);
+                diff *= scrollSpeed;
+                if (Math.signum(diff) != Math.signum(scrollStartVelocity)) diff *= 2.5d;
+                animationTimer *= 0.5;
+                scrollStartVelocity = scrollbarVelocity(animationTimer, scrollStartVelocity) + diff;
+                animationTimer = 0;
+            } else this.setScrollAmount(amount);
+            return true;
+        }
+    }
+
+    @Override
+    public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
+        if(AlinLib.bariumConfig.getBoolean("SCROLLER.SMOOTH", false)) {
+            checkOutOfBounds(delta);
+            if (Math.abs(scrollbarVelocity(animationTimer, scrollStartVelocity)) > 1.0) applyMotion(delta);
+        }
+        super.renderWidget(guiGraphics, mouseX, mouseY, delta);
+    }
+    private void applyMotion(float delta) {
+        this.scrollAmount += scrollbarVelocity(animationTimer, scrollStartVelocity) * delta;
+        animationTimer += delta * 10 / animationDuration;
+        this.onScroll.accept(this);
+    }
+
+    private void checkOutOfBounds(float delta) {
+        if (this.scrollAmount < 0) {
+            this.scrollAmount += pushBackStrength(Math.abs(this.scrollAmount), delta);
+            if (this.scrollAmount > -0.2) this.scrollAmount = 0;
+        }
+        if (this.scrollAmount > getMaxScrollAmount()) {
+            this.scrollAmount -= pushBackStrength(this.scrollAmount - getMaxScrollAmount(), delta);
+            if (this.scrollAmount < getMaxScrollAmount() + 0.2) this.scrollAmount = getMaxScrollAmount();
+        }
+    }
+    // ScrollMath
+    public static double scrollbarVelocity(double timer, double factor) {
+        return Math.pow(1 - scrollbarDrag, timer) * factor;
+    }
+
+    public static int dampenSquish(double squish, int height) {
+        double proportion = Math.min(1, squish / 100);
+        return (int) (Math.min(0.85, proportion) * height);
+    }
+
+    public static double pushBackStrength(double distance, float delta) {
+        return ((distance + 4d) * delta / 0.3d) / (3.2d/pushBackStrength);
     }
 }
