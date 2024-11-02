@@ -26,7 +26,7 @@ public class DesignScreen {
             builder.addPanelWidget(new ButtonBuilder(Component.translatable("alinlib.title.not_release"),
                     (s) -> AlinLib.MINECRAFT.setScreen(new ConfirmScreen(builder.build(), Component.translatable("alinlib"),
                             Component.translatable("alinlib.title.not_release.description"), "https://github.com/kel-cu/alinlib/issues"))
-            ).setIcon(WIKI).setCentered(false));
+            ).setIcon(SEARCH).setCentered(false));
         }
         builder.addWidget(new TextBox(Component.translatable("alinlib.config.design"), true))
                 .addWidget(new SelectorBuilder(Component.translatable("alinlib.config.default_design_type"), selectorButton -> AlinLib.bariumConfig.setString("DEFAULT_DESIGN_TYPE", GuiUtils.getStyleByName(selectorButton.getList()[selectorButton.getPosition()]).id))

@@ -24,7 +24,7 @@ public class StealthScreen {
             builder.addPanelWidget(new ButtonBuilder(Component.translatable("alinlib.title.not_release"),
                     (s) -> AlinLib.MINECRAFT.setScreen(new ConfirmScreen(builder.build(), Component.translatable("alinlib"),
                             Component.translatable("alinlib.title.not_release.description"), "https://github.com/kel-cu/alinlib/issues"))
-            ).setIcon(WIKI).setCentered(false));
+            ).setIcon(SEARCH).setCentered(false));
         }
         builder.addWidget(new TextBox(Component.translatable("alinlib.config.stealth"), true))
                 .addWidget(new ButtonBooleanBuilder(Component.translatable("alinlib.config.streamer.stealth"), false).setConfig(AlinLib.bariumConfig, "STREAMER.STEALTH"))

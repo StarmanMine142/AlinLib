@@ -23,7 +23,7 @@ public class LocalizationScreen {
             builder.addPanelWidget(new ButtonBuilder(Component.translatable("alinlib.title.not_release"),
                     (s) -> AlinLib.MINECRAFT.setScreen(new ConfirmScreen(builder.build(), Component.translatable("alinlib"),
                             Component.translatable("alinlib.title.not_release.description"), "https://github.com/kel-cu/alinlib/issues"))
-            ).setIcon(WIKI).setCentered(false));
+            ).setIcon(SEARCH).setCentered(false));
         }
         builder.addWidget(new TextBox(Component.translatable("alinlib.localization"), true))
                 .addWidget(new ButtonBooleanBuilder(Component.translatable("alinlib.config.localization.extended_coordinates"), false).setConfig(AlinLib.bariumConfig, "LOCALIZATION.EXTENDED_COORDINATES"))

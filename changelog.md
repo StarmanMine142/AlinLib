@@ -1,7 +1,17 @@
 - Added AlinLogger
 - Added ConfirmScreen
 - Added isNotReleaseVersion();
-- Added   Catppuccin/Mocha colors
+- Added Catppuccin/Mocha colors
+- Added Smooth scrolling in ConfigureScrolWidget
+- Added new icons:
+    - MOVE
+    - TRASH
+    - SEARCH
+    - SPEAKER
+    - SPEAKER_LOW
+    - SPEAKER_MUTE
+    - SPEAKER_OK
+    - TIME
 - Changed icon
 - Cleanup code
 - Support for 1.20.x is canceled
