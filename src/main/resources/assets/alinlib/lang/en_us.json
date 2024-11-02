@@ -5,7 +5,7 @@
   "alinlib.title.not_release": "This version is not a release version!",
   "alinlib.title.not_release.description": "This version is not a release version and may contain many bugs and errors.\\nIf you notice them, please contact Issues mod!",
   "alinlib.title.reset": "Reset the parameters?",
-  "alinlib.title.reset.description": "If you reset the settings, the process will be irreversible",
+  "alinlib.title.reset.description": "If you reset the settings, your action will be irreversible",
 
 
   "alinlib.key.stealth": "Stealth mode",

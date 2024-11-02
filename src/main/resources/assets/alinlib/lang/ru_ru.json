@@ -4,7 +4,7 @@
   "alinlib.title.not_release": "Эта версия не релизная!",
   "alinlib.title.not_release.description": "Данная версия не является релизной и может содержать множество ошибок и недочетов.\nЕсли вы их заметили, то обратитесь в Issues мода!",
   "alinlib.title.reset": "Сбросить параметры?",
-  "alinlib.title.reset.description": "Если вы сбросите настройки, процесс будет необратимым",
+  "alinlib.title.reset.description": "Если вы сбросите настройки, то ваши действия будут необратимы",
 
   "alinlib.key.stealth": "Режим стелса",
 
