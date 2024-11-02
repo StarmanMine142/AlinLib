@@ -12,20 +12,8 @@ import ru.kelcuprum.alinlib.api.events.client.GuiRenderEvents;
 @Mixin(value = Gui.class)
 public class GuiMixin {
     @Inject(method = "render", at = @At("RETURN"))
-    private void render(GuiGraphics guiGraphics,
-                        //#if MC >= 12100
-                        net.minecraft.client.DeltaTracker deltaTracker
-                        //#elseif MC < 12100
-                        //$$ float tick
-                        //#endif
-            , CallbackInfo ci) {
+    private void render(GuiGraphics guiGraphics, net.minecraft.client.DeltaTracker deltaTracker, CallbackInfo ci) {
         if(AlinLib.MINECRAFT.options.hideGui) return;
-        GuiRenderEvents.RENDER.invoker().onRender(guiGraphics,
-                //#if MC >= 12100
-                deltaTracker.getGameTimeDeltaTicks()
-                //#elseif MC < 12100
-                //$$ tick
-                //#endif
-        );
+        GuiRenderEvents.RENDER.invoker().onRender(guiGraphics, deltaTracker.getGameTimeDeltaTicks());
     }
 }

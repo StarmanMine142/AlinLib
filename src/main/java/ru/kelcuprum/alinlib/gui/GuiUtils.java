@@ -30,21 +30,11 @@ public class GuiUtils {
     public static final int DEFAULT_HEIGHT = 20;
 
     public static net.minecraft.resources.ResourceLocation getResourceLocation(String path) {
-        return
-                //#if MC >= 12100
-        net.minecraft.resources.ResourceLocation.withDefaultNamespace(path);
-        //#elseif MC < 12100
-        //$$ new net.minecraft.resources.ResourceLocation(path);
-        //#endif
+        return net.minecraft.resources.ResourceLocation.withDefaultNamespace(path);
     }
 
     public static net.minecraft.resources.ResourceLocation getResourceLocation(String id, String path) {
-        return
-                //#if MC >= 12100
-        net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(id, path);
-        //#elseif MC < 12100
-        //$$ new net.minecraft.resources.ResourceLocation(id, path);
-        //#endif
+        return net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(id, path);
     }
 
     // Styles
