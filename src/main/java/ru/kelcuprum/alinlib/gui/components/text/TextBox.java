@@ -12,8 +12,8 @@ import static ru.kelcuprum.alinlib.gui.GuiUtils.DEFAULT_HEIGHT;
 import static ru.kelcuprum.alinlib.gui.GuiUtils.DEFAULT_WIDTH;
 
 public class TextBox extends AbstractWidget implements Description {
-    private final boolean isCentred;
-    private final OnPress onPress;
+    public final boolean isCentred;
+    public final OnPress onPress;
 
     public TextBox(Component label){
         this(0, 0, DEFAULT_WIDTH(), DEFAULT_HEIGHT, label, true, null);

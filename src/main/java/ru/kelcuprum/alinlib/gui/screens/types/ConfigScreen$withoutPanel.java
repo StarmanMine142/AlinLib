@@ -31,8 +31,10 @@ public class ConfigScreen$withoutPanel extends AbstractConfigScreen {
     }
 
     public void initPanelButtons() {
+        int size = Math.min(maxSize, this.width-10);
+        int x = (width-size) / 2;
         // -=-=-=-=-=-=-=-
-        titleW = addRenderableWidget(new TextBox(35, 5, width - 70, 20, this.builder.title, true));
+        titleW = addRenderableWidget(new TextBox(x+25, 5, size-50, 20, this.builder.title, true));
         // -=-=-=-=-=-=-=-
         // Exit Buttons
         // 85 before reset button
@@ -40,7 +42,7 @@ public class ConfigScreen$withoutPanel extends AbstractConfigScreen {
         back = addRenderableWidget(new ButtonBuilder(AlinLib.isAprilFool() ? CommonComponents.GUI_BACK : Component.literal("x")).setOnPress((OnPress) -> {
             assert this.minecraft != null;
             this.minecraft.setScreen(builder.parent);
-        }).setSprite(AlinLib.isAprilFool() ? EXIT : null).setPosition(width - 30, 5).setSize(20, 20).build());
+        }).setSprite(AlinLib.isAprilFool() ? EXIT : null).setPosition(x+size-20, 5).setSize(20, 20).build());
 
         reset = addRenderableWidget(new ButtonBuilder(Component.translatable("alinlib.component.reset")).setOnPress((OnPress) -> {
             this.minecraft.setScreen(new ConfirmScreen(this, RESET, Component.translatable("alinlib.title.reset"), Component.translatable("alinlib.title.reset.description"), (bl) -> {
@@ -56,22 +58,24 @@ public class ConfigScreen$withoutPanel extends AbstractConfigScreen {
                     AlinLib.LOG.log(Component.translatable("alinlib.component.reset.toast"));
                 }
             }));
-        }).setSprite(RESET).setSize(20, 20).setPosition(10, 5).build());
+        }).setSprite(RESET).setSize(20, 20).setPosition(x, 5).build());
         addRenderableWidgets(builder.panelWidgets);
     }
 
     Component description = Component.empty();
 
+    private final int maxSize = 400;
     public void initCategory() {
-        int width = this.width - 20;
+        int size = Math.min(maxSize, this.width-10);
+        int x = (width-size) / 2;
         int oy = 30;
         for (AbstractWidget widget : builder.widgets) {
-            widget.setWidth(width);
+            widget.setWidth(size);
             widget.setY(oy);
-            widget.setX(10);
+            widget.setX(x);
             oy+= (widget.getHeight()+5);
         }
-        this.scroller = addRenderableWidget(new ConfigureScrolWidget(this.width - 8, 30, 4, this.height - 35, Component.empty(), scroller -> {
+        this.scroller = addRenderableWidget(new ConfigureScrolWidget(x+size - 3, 30, 4, this.height - 35, Component.empty(), scroller -> {
             scroller.innerHeight = 0;
             CategoryBox lastCategory = null;
             Component lastDescription = null;
@@ -104,11 +108,13 @@ public class ConfigScreen$withoutPanel extends AbstractConfigScreen {
 
     @Override
     public boolean mouseClicked(double d, double e, int i) {
+        int size = Math.min(maxSize, width-10);
+        int x = (width-size) / 2;
         boolean st = true;
         GuiEventListener selected = null;
         for (GuiEventListener guiEventListener : this.children()) {
             if (scroller != null && scroller.widgets.contains(guiEventListener)) {
-                if ((d >= 10 && d <= width - 10) && (e >= 30 && e <= height)) {
+                if ((d >= x && d <= x + size) && e >= 30) {
                     if (guiEventListener.mouseClicked(d, e, i)) {
                         st = false;
                         selected = guiEventListener;
@@ -163,7 +169,10 @@ public class ConfigScreen$withoutPanel extends AbstractConfigScreen {
     public void renderBackground(GuiGraphics guiGraphics, int i, int j, float f) {
         assert this.minecraft != null;
         super.renderBackground(guiGraphics, i, j, f);
-        guiGraphics.fill(35, 5, width - 35, 25, Colors.BLACK_ALPHA);
+        int size = Math.min(maxSize, width-10);
+        int x = (width-size) / 2;
+        guiGraphics.fill(x-5, 0, x+size+5, height, Colors.BLACK_ALPHA); // Затемнение
+        guiGraphics.fill(x+25, 5, x+size-25, 25, Colors.BLACK_ALPHA);
     }
     //#elseif MC < 12002
     //$$
@@ -171,7 +180,10 @@ public class ConfigScreen$withoutPanel extends AbstractConfigScreen {
     //$$  public void renderBackground(GuiGraphics guiGraphics){
     //$$      assert this.minecraft != null;
     //$$      super.renderBackground(guiGraphics);
-    //$$      guiGraphics.fill(0, 0, this.builder.panelSize, this.height, Colors.BLACK_ALPHA);
+    //$$      int size = Math.min(maxSize, width-10);
+    //$$      int x = (width-size) / 2;
+    //$$      guiGraphics.fill(x-5, 0, x+size+5, height, Colors.BLACK_ALPHA); // Затемнение
+    //$$      guiGraphics.fill(x+25, 5, x+size-25, 25, Colors.BLACK_ALPHA);
     //$$  }
     //#endif
 
