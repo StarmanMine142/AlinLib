@@ -38,7 +38,8 @@ loom {
             runDir '../../run'
             vmArgs '-Dmixin.debug.export=true'
         }
-    accessWidenerPath = file("../../src/main/resources/alinlib.accesswidener")
+
+    accessWidenerPath = file("src/main/resources/alinlib.accesswidener").exists() ? file("src/main/resources/alinlib.accesswidener") :  file("../../src/main/resources/alinlib.accesswidener")
 }
 remapJar {
     if(mod_brand == 'neoforge') atAccessWideners.add("alinlib.accesswidener")

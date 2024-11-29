@@ -2,7 +2,6 @@ package ru.kelcuprum.alinlib.gui.components;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.AbstractScrollWidget;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
@@ -15,41 +14,37 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class ConfigureScrolWidget extends AbstractScrollWidget {
+public class ConfigureScrolWidget extends AbstractWidget {
+    private double scrollAmount;
+    private boolean scrolling;
+
     public final Consumer<ConfigureScrolWidget> onScroll;
     public int innerHeight;
     public List<AbstractWidget> widgets = new ArrayList<>();
 
     public ConfigureScrolWidget(int x, int y, int width, int height, Component message, Consumer<ConfigureScrolWidget> onScroll) {
         super(x, y, width, height, message);
-
         this.onScroll = onScroll;
     }
-
-    @Override
     protected int getInnerHeight() {
         return innerHeight;
     }
 
-    @Override
     protected double scrollRate() {
         return 9.0;
     }
 
-    @Override
     public double scrollAmount() {
-        return super.scrollAmount();
+        return scrollAmount;
     }
 
-    @Override
-    protected void setScrollAmount(double amount) {
-        super.setScrollAmount(amount);
+    public void setScrollAmount(double amount) {
+        this.scrollAmount = Mth.clamp(amount, 0.0, this.getMaxScrollAmount());
         this.onScroll.accept(this);
     }
 
-    @Override
     protected void renderBackground(GuiGraphics guiGraphics) {
-        if (this.scrollbarVisible()) guiGraphics.fill(getX()+this.width, getY(), getX()+this.width+4, getY()+getHeight(), 0x75000000);
+        if (this.scrollbarVisible()) guiGraphics.fill(getX(), getY(), getX()+this.width, getY()+getHeight(), 0x75000000);
     }
 
     private int getContentHeight() {
@@ -59,26 +54,14 @@ public class ConfigureScrolWidget extends AbstractScrollWidget {
     private int getScrollBarHeight() {
         return Mth.clamp((int)((float)(this.height * this.height) / (float)this.getContentHeight()), 16, this.height);
     }
-
-    @Override
     protected void renderDecorations(GuiGraphics guiGraphics) {
         if (this.scrollbarVisible()) {
             int i = this.getScrollBarHeight();
-            int j = this.getX() + this.width;
-            int k = Math.max(this.getY(), (int)this.scrollAmount() * (this.height - i) / this.getMaxScrollAmount() + this.getY());
+            int k = Math.max(this.getY(), (int)this.scrollAmount() * (this.height - i) / this.getMaxScrollAmount()+ this.getY());
             RenderSystem.enableBlend();
-            guiGraphics.fill(j, k, j+4, k+i, Colors.getScrollerColor());
+            guiGraphics.fill(getX(), k, getX()+getWidth(), k+i, Colors.getScrollerColor());
             RenderSystem.disableBlend();
         }
-    }
-
-    @Override
-    protected void renderContents(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-
-    }
-
-    @Override
-    protected void renderBorder(GuiGraphics guiGraphics, int x, int y, int width, int height) {
     }
 
     public void resetWidgets(){
@@ -105,7 +88,7 @@ public class ConfigureScrolWidget extends AbstractScrollWidget {
     public static double scrollbarDrag= 0.025;
     public static double animationDuration = 1.0;
     public static double pushBackStrength = 1.0;
-
+    // ---
     @Override
     public boolean mouseScrolled(double d, double e, double f, double g) {
         if (!this.visible) {
@@ -125,13 +108,73 @@ public class ConfigureScrolWidget extends AbstractScrollWidget {
         }
     }
 
-    @Override
+    public boolean mouseClicked(double d, double e, int i) {
+        if (!this.visible) {
+            return false;
+        } else {
+            boolean bl = this.withinContentAreaPoint(d, e);
+            boolean bl2 = this.scrollbarVisible() && d >= (double)(this.getX()) && d <= (double)(this.getX() + this.width) && e >= (double)this.getY() && e < (double)(this.getY() + this.height);
+            if (bl2 && i == 0) {
+                this.scrolling = true;
+                return true;
+            } else {
+                return bl || bl2;
+            }
+        }
+    }
+
+    public boolean mouseReleased(double d, double e, int i) {
+        if (i == 0) {
+            this.scrolling = false;
+        }
+
+        return super.mouseReleased(d, e, i);
+    }
+
+    public boolean mouseDragged(double d, double e, int i, double f, double g) {
+        if (this.visible && this.isFocused() && this.scrolling) {
+            if (e < (double)this.getY()) {
+                this.setScrollAmount(0.0);
+            } else if (e > (double)(this.getY() + this.height)) {
+                this.setScrollAmount(this.getMaxScrollAmount());
+            } else {
+                int j = this.getScrollBarHeight();
+                double h = Math.max(1, this.getMaxScrollAmount() / (this.height - j));
+                this.setScrollAmount(this.scrollAmount + g * h);
+            }
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    protected boolean withinContentAreaPoint(double d, double e) {
+        return d >= (double)this.getX() && d < (double)(this.getX() + this.width) && e >= (double)this.getY() && e < (double)(this.getY() + this.height);
+    }
+
+    public boolean keyPressed(int i, int j, int k) {
+        boolean bl = i == 265;
+        boolean bl2 = i == 264;
+        if (bl || bl2) {
+            double d = this.scrollAmount;
+            this.setScrollAmount(this.scrollAmount + (double)(bl ? -1 : 1) * this.scrollRate());
+            if (d != this.scrollAmount) {
+                return true;
+            }
+        }
+
+        return super.keyPressed(i, j, k);
+    }
+    // ---
+
     public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
         if(AlinLib.bariumConfig.getBoolean("SCROLLER.SMOOTH", false)) {
             checkOutOfBounds(delta);
             if (Math.abs(scrollbarVelocity(animationTimer, scrollStartVelocity)) > 1.0) applyMotion(delta);
         }
-        super.renderWidget(guiGraphics, mouseX, mouseY, delta);
+        renderBackground(guiGraphics);
+        renderDecorations(guiGraphics);
     }
     private void applyMotion(float delta) {
         this.scrollAmount += scrollbarVelocity(animationTimer, scrollStartVelocity) * delta;
@@ -149,14 +192,18 @@ public class ConfigureScrolWidget extends AbstractScrollWidget {
             if (this.scrollAmount < getMaxScrollAmount() + 0.2) this.scrollAmount = getMaxScrollAmount();
         }
     }
+    // MC
+    protected boolean scrollbarVisible() {
+        return this.getInnerHeight() > this.getHeight();
+    }
+
+    protected int getMaxScrollAmount() {
+        return Math.max(0, this.getContentHeight() - (this.height - 4));
+    }
+
     // ScrollMath
     public static double scrollbarVelocity(double timer, double factor) {
         return Math.pow(1 - scrollbarDrag, timer) * factor;
-    }
-
-    public static int dampenSquish(double squish, int height) {
-        double proportion = Math.min(1, squish / 100);
-        return (int) (Math.min(0.85, proportion) * height);
     }
 
     public static double pushBackStrength(double distance, float delta) {

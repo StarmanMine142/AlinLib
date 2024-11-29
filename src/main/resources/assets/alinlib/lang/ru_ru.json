@@ -17,6 +17,8 @@
   "alinlib.april_fools.clownfish": "Карусель крутится и никогда останавливается.",
   "alinlib.hb": "У Кела день рождение! Поздравьте его в дискорде @Kel_Cu / kelcu.ru/ds",
 
+  "alinlib.search": "Найти...",
+
   "alinlib.config": "Конфиги",
 
   "alinlib.config.design": "Дизайн",
@@ -30,8 +32,18 @@
   "alinlib.config.checkbox.enable": "Стиль чекбокса",
   "alinlib.config.checkbox.color": "Цвет",
   "alinlib.config.checkbox.color.custom": "Кастоный цвет",
-  "alinlib.config.scroller.color": "Цвет скроллера",
+
+  "alinlib.config.blockquote": "Блок цитаты",
+  "alinlib.config.blockquote.color": "Цвет линии",
+  "alinlib.config.blockquote.color.background": "Фон",
+
+  "alinlib.config.scroller": "Скроллера",
+  "alinlib.config.scroller.color": "Скроллера",
   "alinlib.config.scroller.smooth": "Плавный скролл",
+
+  "alinlib.config.horizontal_rule": "Горизонтальное правило",
+  "alinlib.config.horizontal_rule.color": "Цвет",
+
   "alinlib.config.modern": "Современный дизайн",
 
   "alinlib.config.localization": "Локализация",
@@ -109,6 +121,24 @@
   "alinlib.color.embeddium": "Embeddium",
   "alinlib.color.white": "Белый",
   "alinlib.color.waterplayer": "Сайт WaterPlayer",
+
+
+
+  "alinlib.color.catppucin.rosewater": "(CPM) Rosewater",
+  "alinlib.color.catppucin.flamingo": "(CPM) Flamingo",
+  "alinlib.color.catppucin.pink": "(CPM) Pink",
+  "alinlib.color.catppucin.mauve": "(CPM) Mauve",
+  "alinlib.color.catppucin.red": "(CPM) Red",
+  "alinlib.color.catppucin.maroon": "(CPM) Maroon",
+  "alinlib.color.catppucin.peach": "(CPM) Peach",
+  "alinlib.color.catppucin.yellow": "(CPM) Yellow",
+  "alinlib.color.catppucin.green": "(CPM) Green",
+  "alinlib.color.catppucin.teal": "(CPM) Teal",
+  "alinlib.color.catppucin.sky": "(CPM) Sky",
+  "alinlib.color.catppucin.sapphire": "(CPM) Sapphire",
+  "alinlib.color.catppucin.blue": "(CPM) Blue",
+  "alinlib.color.catppucin.lavender": "(CPM) Lavender",
+
   "alinlib.color.user": "Кастомный",
 
   "alinlib.thanks": "Огромное спасибо!",

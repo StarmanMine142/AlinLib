@@ -100,4 +100,34 @@ public interface Colors {
             default -> AlinLib.bariumConfig.getNumber("CHECKBOX.COLOR.CUSTOM", Colors.CPM_LAVENDER).intValue();
         };
     }
+    static int getHorizontalRuleColor(){
+        return switch (AlinLib.bariumConfig.getNumber("HORIZONTAL_RULE.COLOR", 0).intValue()){
+            case 0 -> Colors.WHITE-0x7F000000;
+            case 1 -> Colors.GROUPIE-0x7F000000;
+            case 2 -> Colors.ALINA-0x7F000000;
+            case 3 -> Colors.SEADRIVE-0x7F000000;
+            case 4 -> Colors.TETRA-0x7F000000;
+            case 5 -> Colors.CONVICT-0x7F000000;
+            case 6 -> Colors.SEABIRD-0x7F000000;
+            case 7 -> Colors.SODIUM-0x7F000000;
+            case 8 -> Colors.EMBEDDIUM-0x7F000000;
+            case 9 -> Colors.WEBSITE_WATERPLAYER-0x7F000000;
+
+            case 10 -> Colors.CPM_ROSEWATER-0x7F000000;
+            case 11 -> Colors.CPM_FLAMINGO-0x7F000000;
+            case 12 -> Colors.CPM_PINK-0x7F000000;
+            case 13 -> Colors.CPM_MAUVE-0x7F000000;
+            case 14 -> Colors.CPM_RED-0x7F000000;
+            case 15 -> Colors.CPM_MAROON-0x7F000000;
+            case 16 -> Colors.CPM_PEACH-0x7F000000;
+            case 17 -> Colors.CPM_YELLOW-0x7F000000;
+            case 18 -> Colors.CPM_GREEN-0x7F000000;
+            case 19 -> Colors.CPM_TEAL-0x7F000000;
+            case 20 -> Colors.CPM_SKY-0x7F000000;
+            case 21 -> Colors.CPM_SAPPHIRE-0x7F000000;
+            case 22 -> Colors.CPM_BLUE-0x7F000000;
+            case 23 -> Colors.CPM_LAVENDER-0x7F000000;
+            default -> AlinLib.bariumConfig.getNumber("HORIZONTAL_RULE.COLOR.CUSTOM", Colors.CPM_LAVENDER).intValue();
+        };
+    }
 }

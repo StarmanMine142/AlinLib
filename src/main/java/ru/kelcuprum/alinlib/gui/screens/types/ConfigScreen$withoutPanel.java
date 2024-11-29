@@ -9,6 +9,7 @@ import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.gui.Colors;
 import ru.kelcuprum.alinlib.gui.components.*;
 import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBuilder;
+import ru.kelcuprum.alinlib.gui.components.builder.text.TextBuilder;
 import ru.kelcuprum.alinlib.gui.components.text.*;
 import ru.kelcuprum.alinlib.gui.screens.*;
 import ru.kelcuprum.alinlib.gui.toast.ToastBuilder;
@@ -34,7 +35,7 @@ public class ConfigScreen$withoutPanel extends AbstractConfigScreen {
         int size = Math.min(maxSize, this.width-10);
         int x = (width-size) / 2;
         // -=-=-=-=-=-=-=-
-        titleW = addRenderableWidget(new TextBox(x+25, 5, size-50, 20, this.builder.title, true));
+        titleW = addRenderableWidget(new TextBuilder(this.builder.title).setPosition(x+25, 5).setSize(size-50, 20).build());
         // -=-=-=-=-=-=-=-
         // Exit Buttons
         // 85 before reset button
@@ -44,7 +45,7 @@ public class ConfigScreen$withoutPanel extends AbstractConfigScreen {
             this.minecraft.setScreen(builder.parent);
         }).setSprite(AlinLib.isAprilFool() ? EXIT : null).setPosition(x+size-20, 5).setSize(20, 20).build());
 
-        reset = addRenderableWidget(new ButtonBuilder(Component.translatable("alinlib.component.reset")).setOnPress((OnPress) -> {
+        if(builder.isResetable) reset = addRenderableWidget(new ButtonBuilder(Component.translatable("alinlib.component.reset")).setOnPress((OnPress) ->
             this.minecraft.setScreen(new ConfirmScreen(this, RESET, Component.translatable("alinlib.title.reset"), Component.translatable("alinlib.title.reset.description"), (bl) -> {
                 if(bl){
                     for (AbstractWidget widget : builder.widgets)
@@ -57,8 +58,10 @@ public class ConfigScreen$withoutPanel extends AbstractConfigScreen {
                             .buildAndShow();
                     AlinLib.LOG.log(Component.translatable("alinlib.component.reset.toast"));
                 }
-            }));
-        }).setSprite(RESET).setSize(20, 20).setPosition(x, 5).build());
+            }))).setSprite(RESET).setSize(20, 20).setPosition(x, 5).build());
+        else {
+
+        }
         addRenderableWidgets(builder.panelWidgets);
     }
 
@@ -75,7 +78,7 @@ public class ConfigScreen$withoutPanel extends AbstractConfigScreen {
             widget.setX(x);
             oy+= (widget.getHeight()+5);
         }
-        this.scroller = addRenderableWidget(new ConfigureScrolWidget(x+size - 3, 30, 4, this.height - 35, Component.empty(), scroller -> {
+        this.scroller = addRenderableWidget(new ConfigureScrolWidget(x+size+1, 30, 4, this.height - 35, Component.empty(), scroller -> {
             scroller.innerHeight = 0;
             CategoryBox lastCategory = null;
             Component lastDescription = null;

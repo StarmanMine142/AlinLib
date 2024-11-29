@@ -13,7 +13,7 @@ import org.lwjgl.glfw.GLFW;
 import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.WebAPI;
 import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBuilder;
-import ru.kelcuprum.alinlib.gui.components.text.MessageBox;
+import ru.kelcuprum.alinlib.gui.components.builder.text.TextBuilder;
 import ru.kelcuprum.alinlib.gui.components.text.TextBox;
 
 import java.awt.*;
@@ -62,13 +62,13 @@ public class ThanksScreen extends Screen {
     }
 
     protected TextBox pwgood3;
-    protected MessageBox offer;
+    protected TextBox offer;
 
     @Override
     protected void init() {
-        addRenderableWidget(new TextBox(width/2-200, 10, 400, 20, Component.translatable("alinlib.thanks"), true));
-        pwgood3 = addRenderableWidget( new TextBox(width/2-200, 35, 400, AlinLib.MINECRAFT.font.lineHeight, getDobryak(), true));
-        offer = addRenderableWidget(new MessageBox(width/2-200, (40+AlinLib.MINECRAFT.font.lineHeight), 400, 100, Component.translatable("alinlib.thanks.offer"), true));
+        addRenderableWidget(new TextBuilder(Component.translatable("alinlib.thanks")).setPosition(width/2-200, 10).setSize(400, 20).build());
+        pwgood3 = (TextBox) addRenderableWidget( new TextBuilder(getDobryak()).setPosition(width/2-200, 35).setSize(400, AlinLib.MINECRAFT.font.lineHeight).build());
+        offer = (TextBox) addRenderableWidget(new TextBuilder(Component.translatable("alinlib.thanks.offer")).setPosition(width/2-200, (40+AlinLib.MINECRAFT.font.lineHeight)).setSize(400, 100).build());
         addRenderableWidget(new ButtonBuilder(Component.translatable("alinlib.thanks.boosty"), (s) -> Util.getPlatform().openUri("https://kelcu.ru/boo")).setWidth(150).setPosition(width-155, height-75).build());
         addRenderableWidget(new ButtonBuilder(Component.translatable("alinlib.thanks.donationalerts"), (s) -> Util.getPlatform().openUri("https://www.donationalerts.com/r/kel_cu")).setWidth(150).setPosition(width-155, height-50).build());
         addRenderableWidget(new ButtonBuilder(Component.translatable("alinlib.thanks.exit"), (s) -> onClose()).setIcon(EXIT).setWidth(150).setPosition(width-155, height-25).build());

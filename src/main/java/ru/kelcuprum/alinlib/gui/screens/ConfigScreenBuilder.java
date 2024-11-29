@@ -5,6 +5,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.gui.GuiUtils;
+import ru.kelcuprum.alinlib.gui.components.Resetable;
 import ru.kelcuprum.alinlib.gui.components.builder.AbstractBuilder;
 import ru.kelcuprum.alinlib.gui.components.text.CategoryBox;
 import ru.kelcuprum.alinlib.gui.screens.types.*;
@@ -22,6 +23,7 @@ public class ConfigScreenBuilder {
     public OnTick onTick;
     public OnTickScreen onTickScreen;
     public Screen parent;
+    public boolean isResetable = false;
     public int panelSize = AlinLib.bariumConfig.getBoolean("CONFIG_SCREEN.SMALL_PANEL_SIZE", false) ?  130 : 190;
     public int yL = AlinLib.bariumConfig.getBoolean("MODERN", true) ? 35 : 40;
     public int yC = 5;
@@ -91,6 +93,7 @@ public class ConfigScreenBuilder {
             yC+=widget.getHeight()+5;
             for(AbstractWidget cW : ((CategoryBox) widget).getValues()){
                 this.widgets.add(cW);
+                if(!isResetable && (cW instanceof Resetable)) isResetable = true;
                 cW.setX(140);
                 cW.setY(yC);
                 yC+=cW.getHeight()+5;
@@ -108,7 +111,16 @@ public class ConfigScreenBuilder {
             widget.setX(140);
             yC+=widget.getHeight()+5;
         }
+        if(!isResetable && (widget instanceof Resetable)) isResetable = true;
         return this;
+    }
+    //
+    public ConfigScreenBuilder setResetable(boolean isResetable){
+        this.isResetable = isResetable;
+        return this;
+    }
+    public boolean getResetable(){
+        return this.isResetable;
     }
     //
     public ConfigScreenBuilder setOnTick(OnTick onTick){

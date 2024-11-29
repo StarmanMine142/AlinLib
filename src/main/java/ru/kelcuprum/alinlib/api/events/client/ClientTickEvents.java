@@ -1,7 +1,6 @@
 package ru.kelcuprum.alinlib.api.events.client;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
 import ru.kelcuprum.alinlib.api.events.Event;
 import ru.kelcuprum.alinlib.api.events.EventFactory;
 

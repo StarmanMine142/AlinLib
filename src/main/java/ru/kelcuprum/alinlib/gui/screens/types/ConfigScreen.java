@@ -7,6 +7,7 @@ import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.gui.Colors;
 import ru.kelcuprum.alinlib.gui.components.*;
 import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBuilder;
+import ru.kelcuprum.alinlib.gui.components.builder.text.TextBuilder;
 import ru.kelcuprum.alinlib.gui.components.text.*;
 import ru.kelcuprum.alinlib.gui.screens.*;
 import ru.kelcuprum.alinlib.gui.toast.ToastBuilder;
@@ -26,7 +27,7 @@ public class ConfigScreen extends AbstractConfigScreen {
     }
     public void initPanelButtons(){
         // -=-=-=-=-=-=-=-
-        titleW = addRenderableWidget(new TextBox(5, 5, this.builder.panelSize-10, 30, this.builder.title, true));
+        titleW = addRenderableWidget(new TextBuilder(this.builder.title).setPosition(5, 5).setSize(this.builder.panelSize-10, 30).build());
         // -=-=-=-=-=-=-=-
         this.descriptionBox = new DescriptionBox(5, 40, this.builder.panelSize-10, height - 70, Component.empty());
         this.descriptionBox.visible = false;
@@ -38,9 +39,9 @@ public class ConfigScreen extends AbstractConfigScreen {
         back = addRenderableWidget(new ButtonBuilder(CommonComponents.GUI_BACK).setOnPress((OnPress) -> {
             assert this.minecraft != null;
             this.minecraft.setScreen(builder.parent);
-        }).setIcon(AlinLib.isAprilFool() ? EXIT : null).setPosition(5, height - 25).setSize(this.builder.panelSize-35, 20).build());
+        }).setIcon(AlinLib.isAprilFool() ? EXIT : null).setPosition(5, height - 25).setSize(this.builder.panelSize-(builder.isResetable ? 35 : 10), 20).build());
 
-        reset = addRenderableWidget(new ButtonBuilder(Component.translatable("alinlib.component.reset")).setOnPress((OnPress) -> {
+        if(builder.isResetable) reset = addRenderableWidget(new ButtonBuilder(Component.translatable("alinlib.component.reset")).setOnPress((OnPress) -> {
             for(AbstractWidget widget : builder.widgets) if(widget instanceof Resetable) ((Resetable) widget).resetValue();
             assert this.minecraft != null;
             new ToastBuilder()
@@ -81,7 +82,7 @@ public class ConfigScreen extends AbstractConfigScreen {
             widget.setWidth(width);
             widget.setX(this.builder.panelSize+10);
         }
-        this.scroller = addRenderableWidget(new ConfigureScrolWidget(this.width - 8, 0, 4, this.height, Component.empty(), scroller -> {
+        this.scroller = addRenderableWidget(new ConfigureScrolWidget(this.width - 4, 0, 4, this.height, Component.empty(), scroller -> {
             scroller.innerHeight = 5;
             boolean descriptionEnable = false;
             CategoryBox lastCategory = null;

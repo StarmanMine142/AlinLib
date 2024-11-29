@@ -11,9 +11,9 @@ import ru.kelcuprum.alinlib.gui.components.ConfigureScrolWidget;
 import ru.kelcuprum.alinlib.gui.components.Description;
 import ru.kelcuprum.alinlib.gui.components.Resetable;
 import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBuilder;
+import ru.kelcuprum.alinlib.gui.components.builder.text.TextBuilder;
 import ru.kelcuprum.alinlib.gui.components.text.CategoryBox;
 import ru.kelcuprum.alinlib.gui.components.text.DescriptionBox;
-import ru.kelcuprum.alinlib.gui.components.text.TextBox;
 import ru.kelcuprum.alinlib.gui.screens.AbstractConfigScreen;
 import ru.kelcuprum.alinlib.gui.screens.ConfigScreenBuilder;
 import ru.kelcuprum.alinlib.gui.screens.ConfirmScreen;
@@ -36,7 +36,7 @@ public class ConfigScreen$modern extends AbstractConfigScreen {
     int yo = 35;
     public void initPanelButtons() {
         // -=-=-=-=-=-=-=-
-        titleW = addRenderableWidget(new TextBox(5, 5, this.builder.panelSize - 10, 20, this.builder.title, true));
+        titleW = addRenderableWidget(new TextBuilder(this.builder.title).setPosition(5, 5).setSize(this.builder.panelSize - 10, 20).build());
         // -=-=-=-=-=-=-=-
         this.descriptionBox = new DescriptionBox(10, 35, this.builder.panelSize - 20, height - 70, Component.empty());
         this.descriptionBox.visible = false;
@@ -46,7 +46,7 @@ public class ConfigScreen$modern extends AbstractConfigScreen {
         // 85 before reset button
         int heigthScroller = 35;
         for (AbstractWidget widget : builder.panelWidgets) heigthScroller+=(widget.getHeight()+5);
-        this.scroller_panel = addRenderableWidget(new ConfigureScrolWidget(builder.panelSize-9, 30, 4, this.height - 60, Component.empty(), scroller -> {
+        this.scroller_panel = addRenderableWidget(new ConfigureScrolWidget(builder.panelSize, 30, 4, this.height - 60, Component.empty(), scroller -> {
             scroller.innerHeight = 5;
             for (AbstractWidget widget : builder.panelWidgets) {
                 if (widget.visible) {
@@ -60,9 +60,9 @@ public class ConfigScreen$modern extends AbstractConfigScreen {
         back = addRenderableWidget(new ButtonBuilder(CommonComponents.GUI_BACK).setOnPress((OnPress) -> {
             assert this.minecraft != null;
             this.minecraft.setScreen(builder.parent);
-        }).setIcon(AlinLib.isAprilFool() ? EXIT : null).setPosition(5, yo+5).setSize(this.builder.panelSize - 35, 20).build());
+        }).setIcon(AlinLib.isAprilFool() ? EXIT : null).setPosition(5, yo+5).setSize(this.builder.panelSize - (builder.isResetable ? 35 : 10), 20).build());
 
-        reset = addRenderableWidget(new ButtonBuilder(Component.translatable("alinlib.component.reset")).setOnPress((OnPress) -> {
+        if(builder.isResetable) reset = addRenderableWidget(new ButtonBuilder(Component.translatable("alinlib.component.reset")).setOnPress((OnPress) -> {
             this.minecraft.setScreen(new ConfirmScreen(this, RESET, Component.translatable("alinlib.title.reset"), Component.translatable("alinlib.title.reset.description"), (bl) -> {
                 if(bl){
                     for (AbstractWidget widget : builder.widgets)
@@ -87,7 +87,7 @@ public class ConfigScreen$modern extends AbstractConfigScreen {
             widget.setWidth(width);
             widget.setX(this.builder.panelSize + 5);
         }
-        this.scroller = addRenderableWidget(new ConfigureScrolWidget(this.width - 8, 0, 4, this.height, Component.empty(), scroller -> {
+        this.scroller = addRenderableWidget(new ConfigureScrolWidget(this.width - 4, 0, 4, this.height, Component.empty(), scroller -> {
             scroller.innerHeight = 5;
             boolean descriptionEnable = false;
             CategoryBox lastCategory = null;

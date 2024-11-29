@@ -1,7 +1,6 @@
 package ru.kelcuprum.alinlib.api;
 
 import net.minecraft.client.KeyMapping;
-import org.apache.logging.log4j.Level;
 import ru.kelcuprum.alinlib.AlinLib;
 
 public class KeyMappingHelper {

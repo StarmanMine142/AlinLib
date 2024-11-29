@@ -3,9 +3,11 @@ package ru.kelcuprum.alinlib.gui.components.text;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.navigation.CommonInputs;
 import net.minecraft.network.chat.Component;
 import ru.kelcuprum.alinlib.AlinLib;
+import ru.kelcuprum.alinlib.gui.Colors;
 import ru.kelcuprum.alinlib.gui.GuiUtils;
 import ru.kelcuprum.alinlib.gui.components.builder.AbstractBuilder;
 
@@ -15,7 +17,7 @@ import java.util.List;
 import static ru.kelcuprum.alinlib.gui.GuiUtils.DEFAULT_HEIGHT;
 import static ru.kelcuprum.alinlib.gui.GuiUtils.DEFAULT_WIDTH;
 
-public class CategoryBox extends TextBox {
+public class CategoryBox extends AbstractWidget {
     public final List<AbstractWidget> values = new ArrayList<>();
     private boolean state;
     private boolean renderLine = false;
@@ -37,10 +39,9 @@ public class CategoryBox extends TextBox {
         this(x, y ,width, height, true, label);
     }
     public CategoryBox(int x, int y, int width, int height, boolean state, Component label) {
-        super(x, y, width, height, label, true);
+        super(x, y, width, height, label);
         this.name = label;
         this.state = state;
-        this.setActive(true);
     }
     public CategoryBox addValue(AbstractBuilder builder){
         return addValue(builder.build());
@@ -95,6 +96,12 @@ public class CategoryBox extends TextBox {
         changeState();
         super.onClick(d, e);
     }
+
+    @Override
+    protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
+
+    }
+
     @Override
     public boolean keyPressed(int i, int j, int k) {
         if (this.active && this.visible) {
@@ -120,20 +127,20 @@ public class CategoryBox extends TextBox {
                 this.renderScrollingString(guiGraphics, AlinLib.MINECRAFT.font, 2, 0xFFFFFF);
                 int textWidth = font.width(getMessage());
                 int x = (getX() + getWidth() / 2) - (textWidth/2);
-                guiGraphics.fill(Math.max(x, getX()), y+font.lineHeight+1, Math.max(x, getX())+Math.min(textWidth, getWidth()), y+font.lineHeight+2, 0xFFFFFFFF);
+                guiGraphics.fill(Math.max(x, getX()), y+font.lineHeight+1, Math.max(x, getX())+Math.min(textWidth, getWidth()), y+font.lineHeight+2, Colors.getHorizontalRuleColor());
             } else {
                 guiGraphics.drawString(font, state ? "▼" : "▶", getX() + (getHeight() - 8) / 2, y, -1);
                 guiGraphics.drawCenteredString(font, getName(), getX() + getWidth() / 2, y, -1);
                 int textWidth = font.width(getName());
                 int x = (getX() + getWidth() / 2) - (textWidth/2);
-                guiGraphics.fill(x, y+font.lineHeight+1, x+textWidth, y+font.lineHeight+2, 0xFFFFFFFF);
+                guiGraphics.fill(x, y+font.lineHeight+1, x+textWidth, y+font.lineHeight+2, Colors.getHorizontalRuleColor());
             }
             if(state && renderLine){
                 int yW = height+5;
                 for(AbstractWidget widget : values) yW+=widget.getHeight()+5;
                 int textWidth = font.width(getName());
                 int x = (getX() + getWidth() / 2) - (textWidth/2);
-                guiGraphics.fill(x, getY()+yW, x+textWidth, getY()+yW+1, 0xFFFFFFFF);
+                guiGraphics.fill(x, getY()+yW, x+textWidth, getY()+yW+1, Colors.getHorizontalRuleColor());
             }
         }
     }
