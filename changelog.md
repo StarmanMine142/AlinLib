@@ -1,5 +1,5 @@
-- Redesign ConfigScreen$withoutPanel
-- Support 1.21.4
+- Redesign of ConfigScreen$withoutPanel
+- Ported to 1.21.4
 - Rewritten ConfigureScrolWidget
 - Rewritten TextBox to builder
   - Added types: TEXT, BLOCKQUOTE, MESSAGE

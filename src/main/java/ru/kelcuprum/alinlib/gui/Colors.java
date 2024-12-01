@@ -13,6 +13,7 @@ public interface Colors {
     int CONVICT = 0xFFffdc32;
     int SEABIRD = 0xFFf1ae31;
     int TETRA = 0xFFff67d1;
+    int DROPLET = 0xffab2b4e;
     int FORGOT = 0xFF4f3e60;
     int WHITE = 0xFFFFFFFF;
     int BLACK = 0xFF000000;
