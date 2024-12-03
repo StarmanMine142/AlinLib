@@ -87,11 +87,11 @@ public class TextBox extends AbstractWidget implements Description {
        }
     }
     public void renderMessageText(GuiGraphics guiGraphics){
-        List<FormattedCharSequence> list = AlinLib.MINECRAFT.font.split(getMessage(), width-12);
+        List<FormattedCharSequence> list = AlinLib.MINECRAFT.font.split(getMessage(), width-(this.builder.type == BLOCKQUOTE && this.builder.align != CENTER ? 13 : 12));
         int l = 0;
         for(FormattedCharSequence text : list){
             if(builder.align == CENTER) guiGraphics.drawCenteredString(AlinLib.MINECRAFT.font, text, getX()+(getWidth()/2), getY() + 6 + ((AlinLib.MINECRAFT.font.lineHeight+3) * l), -1);
-            else guiGraphics.drawString(AlinLib.MINECRAFT.font, text, (builder.align == LEFT ? getX()+6 : getX()+getWidth()-6-AlinLib.MINECRAFT.font.width(text)), getY() + 6 + ((AlinLib.MINECRAFT.font.lineHeight+3) * l), -1);
+            else guiGraphics.drawString(AlinLib.MINECRAFT.font, text, (builder.align == LEFT ? getX()+(this.builder.type == BLOCKQUOTE ? 7 : 6) : getX()+getWidth()-6-AlinLib.MINECRAFT.font.width(text)), getY() + 6 + ((AlinLib.MINECRAFT.font.lineHeight+3) * l), -1);
             l++;
         }
     }

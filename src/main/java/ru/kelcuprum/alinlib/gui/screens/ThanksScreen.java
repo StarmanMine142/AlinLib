@@ -68,7 +68,7 @@ public class ThanksScreen extends Screen {
     protected void init() {
         addRenderableWidget(new TextBuilder(Component.translatable("alinlib.thanks")).setPosition(width/2-200, 10).setSize(400, 20).build());
         pwgood3 = (TextBox) addRenderableWidget( new TextBuilder(getDobryak()).setPosition(width/2-200, 35).setSize(400, AlinLib.MINECRAFT.font.lineHeight).build());
-        offer = (TextBox) addRenderableWidget(new TextBuilder(Component.translatable("alinlib.thanks.offer")).setPosition(width/2-200, (40+AlinLib.MINECRAFT.font.lineHeight)).setSize(400, 100).build());
+        offer = (TextBox) addRenderableWidget(new TextBuilder(Component.translatable("alinlib.thanks.offer")).setType(TextBuilder.TYPE.MESSAGE).setAlign(TextBuilder.ALIGN.CENTER).setPosition(width/2-200, (40+AlinLib.MINECRAFT.font.lineHeight)).setSize(400, 100).build());
         addRenderableWidget(new ButtonBuilder(Component.translatable("alinlib.thanks.boosty"), (s) -> Util.getPlatform().openUri("https://kelcu.ru/boo")).setWidth(150).setPosition(width-155, height-75).build());
         addRenderableWidget(new ButtonBuilder(Component.translatable("alinlib.thanks.donationalerts"), (s) -> Util.getPlatform().openUri("https://www.donationalerts.com/r/kel_cu")).setWidth(150).setPosition(width-155, height-50).build());
         addRenderableWidget(new ButtonBuilder(Component.translatable("alinlib.thanks.exit"), (s) -> onClose()).setIcon(EXIT).setWidth(150).setPosition(width-155, height-25).build());
