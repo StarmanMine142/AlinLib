@@ -1,4 +1,6 @@
 {
+  "alinlib": "AlinLib",
+  "key.category.minecraft.alinlib": "AlinLib",
   "alinlib.editbox.secret": "Таємниця:)",
 
   "alinlib.title.not_release": "Ця версія не є випуском!",
@@ -179,25 +181,25 @@
 
 
 
-  "alinlib.color.catppucin.rosewater": "(CPM) Rosewater",
-  "alinlib.color.catppucin.flamingo": "(CPM) Flamingo",
-  "alinlib.color.catppucin.pink": "(CPM) Pink",
-  "alinlib.color.catppucin.mauve": "(CPM) Mauve",
-  "alinlib.color.catppucin.red": "(CPM) Red",
-  "alinlib.color.catppucin.maroon": "(CPM) Maroon",
-  "alinlib.color.catppucin.peach": "(CPM) Peach",
-  "alinlib.color.catppucin.yellow": "(CPM) Yellow",
-  "alinlib.color.catppucin.green": "(CPM) Green",
-  "alinlib.color.catppucin.teal": "(CPM) Teal",
-  "alinlib.color.catppucin.sky": "(CPM) Sky",
-  "alinlib.color.catppucin.sapphire": "(CPM) Sapphire",
-  "alinlib.color.catppucin.blue": "(CPM) Blue",
-  "alinlib.color.catppucin.lavender": "(CPM) Lavender",
+  "alinlib.color.catppucin.rosewater": "(CPM) Рожева вода",
+  "alinlib.color.catppucin.flamingo": "(CPM) Фламінго",
+  "alinlib.color.catppucin.pink": "(CPM) Рожевий",
+  "alinlib.color.catppucin.mauve": "(CPM) Ліловий",
+  "alinlib.color.catppucin.red": "(CPM) Червоний",
+  "alinlib.color.catppucin.maroon": "(CPM) Бордовий",
+  "alinlib.color.catppucin.peach": "(CPM) Персиковий",
+  "alinlib.color.catppucin.yellow": "(CPM) Жовтий",
+  "alinlib.color.catppucin.green": "(CPM) Зелений",
+  "alinlib.color.catppucin.teal": "(CPM) Чирковий",
+  "alinlib.color.catppucin.sky": "(CPM) Небесний",
+  "alinlib.color.catppucin.sapphire": "(CPM) Сапфіровий",
+  "alinlib.color.catppucin.blue": "(CPM) Синій",
+  "alinlib.color.catppucin.lavender": "(CPM) Лавандовий",
 
   "alinlib.color.user": "Власний",
 
   "alinlib.thanks": "Дуже дякую!",
-  "alinlib.thanks.offer": "Хочете підтримати розробника? немає проблем!\nВи можете підтримати мене через DonationAlerts або Boosty.to\nАле поспішаю вас попередити, оновлення списку не відбувається миттєво, автор вручну вводить людей, тим самим привертаючи більше уваги до підтримки спільноти :)",
+  "alinlib.thanks.offer": "Хочете підтримати розробника? Немає проблем!\nВи можете підтримати мене через DonationAlerts або Boosty.to\nАле поспішаю вас попередити, оновлення списку не відбувається миттєво, автор вручну вводить людей, тим самим привертаючи більше уваги до підтримки спільноти :)",
   "alinlib.thanks.boosty": "Boosty",
   "alinlib.thanks.donationalerts": "DonationAlerts",
   "alinlib.thanks.exit": "Вийти від підтримки :(",
